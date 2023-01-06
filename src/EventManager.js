@@ -50,6 +50,6 @@ class EventManager{
             this.world.getService(serviceName)[`on${eventName}`](details);
         });
     }
-
-
 }
+
+export default EventManager;

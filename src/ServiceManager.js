@@ -37,3 +37,5 @@ class ServiceManager {
         throw Error(`Cannot get unregistered service '${serviceName}'`)
     }
 }
+
+export default ServiceManager;

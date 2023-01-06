@@ -12,7 +12,7 @@ class CollectionManager {
     registerCollection(name){
 
         if(this.#collections[name]){
-            console.warn(`Collection named '${name}' already registered`);
+            console.error(`Collection named '${name}' already registered`);
             return false;
         }
 
@@ -26,19 +26,19 @@ class CollectionManager {
             return this.#collections[collectionName];
         }
 
-        console.warn(`Cannot get unregistered collection '${collectionName}'`)
+        console.error(`Cannot get unregistered collection '${collectionName}'`)
         return false;
     }
 
     addToCollection(collectionName,object){
 
         if(!this.#collections[collectionName]){
-            console.warn(`collection named '${collectionName} is not registered'`);
+            console.error(`collection named '${collectionName} is not registered'`);
             return false;
         }
-
+       
         if(object.isInCollection(collectionName)){
-            throw Error(`The agent is already registered to collection ${collectionName}`);
+            console.error(`The agent is already registered to collection ${collectionName}`);
             return false;
         }
 
@@ -85,3 +85,5 @@ class CollectionManager {
         }
     }
 }
+
+export default CollectionManager;

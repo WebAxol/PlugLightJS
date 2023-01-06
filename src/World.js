@@ -1,3 +1,9 @@
+import AgentPool from "./AgentPool.js";
+import CollectionManager from "./CollectionManager.js";
+import EventManager from "./EventManager.js";
+import Service from "./Service.js";
+import ServiceManager from "./ServiceManager.js";
+
 class World {
 
     #agentPool;
@@ -51,17 +57,22 @@ class World {
     }
 
     registerAgentType(typeName,prototype){
-        this.#agentPool.registerType(typeName,prototype);
+        return this.#agentPool.registerType(typeName,prototype);
     }
 
-    createAgent(typeName,details){
+    createAgent(typeName,details = undefined){
 
         let agent = this.#agentPool.createAgent(typeName,details);
+        
+        /*
+
         let collections = this.#agentPool.getCollectionsOfType(typeName);
 
         collections.forEach((collection) => {
             this.addToCollection(collection, agent);
         });
+
+        */
 
         return agent;
     }
@@ -108,6 +119,6 @@ class World {
     pauseExecution(){
         this.pause = true;
     }
-
-
 }
+
+export default World;

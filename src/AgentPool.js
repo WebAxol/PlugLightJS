@@ -2,33 +2,17 @@ class AgentPool{
 
     #types;
     #pools;
+    #Agent;
 
     constructor(world){
         this.world = world;
         this.#types = {} // Type Object Pattern
         this.#pools = {} // Object Pool Pattern
         this.toBeRemoved = [];
-    }
-
-    registerType(typeName,prototype){
-
-        if(this.#types[typeName]){
-            console.warn(`The type named '${typeName}' has already been registered`);
-            return false;
-        }
-
-        this.#types[typeName] = prototype;
-        this.#pools[typeName] = [];
-    }
 
 
-    createAgent(typeName,details){
-
-        var world = this.world;
-
-        // Agent class is within AgentPool class, so that only AgentPool can instantiate Agents
-
-        class Agent{
+        
+        this.#Agent = class Agent{
 
             #type;
             #collections;
@@ -85,16 +69,71 @@ class AgentPool{
                 });
             }
         }
+    }
 
-        var agent =  new Agent(typeName,this.#types[typeName]);
+    registerType(typeName,prototype){
+
+        // Deffensive input check
+
+        if(typeof typeName !== 'string' || typeName == ''){
+            console.error(`Cannot create agentType with a type name defined as: ${typeName}; the type must be a non-empty string`);
+            return false;
+        }   
+
+        if(this.#types[typeName] != undefined){
+            console.error(`The type named '${typeName}' has already been registered`);
+            return false;
+        }
+
+        if(prototype == undefined){
+            console.error('Prototype cannot be undefined, it must be a JSON with the attributes of the agent')
+            return false;
+        }
+
+        //
+
+        this.#types[typeName] = prototype;
+        this.#pools[typeName] = [];
+
+        return true;
+    }
+
+
+    createAgent(typeName,details = undefined){
+
+        // Deffensive input check
+
+        if(typeof typeName !== 'string' || typeName == ''){
+            console.error(`Cannot create agent with a type defined as: ${typeName}; the type must be a non-empty string`);
+            return false;
+        }   
+
+        console.log(this.#types);
+
+        if(!this.#types[typeName]){
+            console.error(`Cannot create agent with a type defined as: ${typeName}; the type doesn't exist at AgentPool`);
+            return false;
+        }
+
+        if(details != undefined && typeof details  !== 'object'){
+            console.error(`'details' must be an object`);
+            return false;
+        }
+
+        //
+        
+        var world = this.world;
+        var agent;
         
         if(this.#pools[typeName].length > 0){
             agent = this.#pools[typeName].pop();
             this.resetAgent(agent);
         }
         else{
-            agent = new Agent(typeName,this.#types[typeName]);
+            agent = new this.#Agent(typeName,this.#types[typeName]);
         }
+
+        if(!(details && details['info'])) return agent;
         
         Object.keys(details['info']).forEach((detail) => {
 
@@ -102,6 +141,13 @@ class AgentPool{
                 agent[detail] = details['info'][detail];
             }
         })
+
+        // Deffensive output type check
+
+        if(!(agent instanceof this.#Agent)){
+            console.error(`Something went wrong when creating a new Agent of type ${typeName}`);
+            return false;
+        }
 
         return agent;
     }
@@ -143,7 +189,8 @@ class AgentPool{
             this.#pools[agentType].push(agent);
 
         }catch(err){
-            throw Error(`Error, agent ${agent}`);
+            console.error(`Error, agent ${agent}`);
+            return false;
         }
     }
 
@@ -160,3 +207,5 @@ class AgentPool{
         agent.reset(prototype);
     }
 }
+
+export default AgentPool;

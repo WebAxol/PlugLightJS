@@ -1,0 +1,43 @@
+{
+  "name": "cases",
+  "version": "1.0.0",
+  "description": "<h1>CASES</h1>",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebAxol/CASES.git"
+  },
+  "author": "Gabrel Fuente",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WebAxol/CASES/issues"
+  },
+  "homepage": "https://github.com/WebAxol/CASES#readme",
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "babel": "^6.23.0",
+    "babel-jest": "^29.3.1",
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.20"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "node"
+    ]
+  },
+  "dependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/node": "^7.20.7"
+  }
+}

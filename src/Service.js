@@ -12,3 +12,5 @@ class Service{
         return false;
     }
 }
+
+export default Service;
