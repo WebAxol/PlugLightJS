@@ -14,7 +14,7 @@ A simple javascript framework designed to easily build data-driven applications 
 
 - World (class)
 
-<b>💾 Data concepts utilized:</b>
+<b>💾 Data concepts and conventions utilized:</b>
 
 - Event: Represents something of interest that has occurred, which is notified to observers (services subscribed to that event).
 
