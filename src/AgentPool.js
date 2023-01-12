@@ -73,7 +73,7 @@ class AgentPool{
 
     registerType(typeName,prototype){
 
-        // Deffensive input check
+        // Defensive input check
 
         if(typeof typeName !== 'string' || typeName == ''){
             console.error(`Cannot create agentType with a type name defined as: ${typeName}; the type must be a non-empty string`);
@@ -101,14 +101,12 @@ class AgentPool{
 
     createAgent(typeName,details = undefined){
 
-        // Deffensive input check
+        // Defensive input check
 
         if(typeof typeName !== 'string' || typeName == ''){
             console.error(`Cannot create agent with a type defined as: ${typeName}; the type must be a non-empty string`);
             return false;
         }   
-
-        console.log(this.#types);
 
         if(!this.#types[typeName]){
             console.error(`Cannot create agent with a type defined as: ${typeName}; the type doesn't exist at AgentPool`);
@@ -142,7 +140,7 @@ class AgentPool{
             }
         })
 
-        // Deffensive output type check
+        // Defensive output type check
 
         if(!(agent instanceof this.#Agent)){
             console.error(`Something went wrong when creating a new Agent of type ${typeName}`);

@@ -11,13 +11,22 @@ class CollectionManager {
 
     registerCollection(name){
 
+        // Defensive input check
+
+        if(typeof name !== 'string' || name == ''){
+            console.error(`Cannot register collection with a name defined as: ${typeName}; the name must be a non-empty string`);
+            return false;
+        }   
+
         if(this.#collections[name]){
             console.error(`Collection named '${name}' already registered`);
             return false;
         }
 
+        //
+
         this.#collections[name] = [];
-        return this;
+        return this;collection
     }
 
     getCollection(collectionName){
@@ -30,20 +39,31 @@ class CollectionManager {
         return false;
     }
 
-    addToCollection(collectionName,object){
+    addToCollection(collectionName,object = undefined){
+
+        // Defensive input check 
 
         if(!this.#collections[collectionName]){
             console.error(`collection named '${collectionName} is not registered'`);
             return false;
         }
+
+        if(typeof object != 'object' || !object.isInCollection || !object.addCollection ){
+            console.error(`The value passed as 'agent' is not a valid Agent object ${collectionName}`);
+            return false;
+        }
        
-        if(object.isInCollection(collectionName)){
+        if(object.isInCollection && object.isInCollection(collectionName)){
             console.error(`The agent is already registered to collection ${collectionName}`);
             return false;
         }
 
+        //
+
         this.#collections[collectionName].push(object);
         object.addCollection(collectionName);
+
+        return true;
     }
 
     cacheToBeRemoved(collectionName,agent){

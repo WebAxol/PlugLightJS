@@ -9,10 +9,6 @@ console.log('executing main');
 
 /* --- Test AgentPool ---*/
 
-exports.registerAgentType = () =>{
-
-}
-
 var typeCreated  = app.registerAgentType('TypeA',{});
 var agent        = app.createAgent('TypeA');
 

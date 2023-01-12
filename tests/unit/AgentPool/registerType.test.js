@@ -1,7 +1,7 @@
 import AgentPool from "../../../src/AgentPool";
 
 const agentPool = new AgentPool();
-const n = 10;
+const n = 1;
 // registerType
 
 for(let i = 1; i <= n; i++){

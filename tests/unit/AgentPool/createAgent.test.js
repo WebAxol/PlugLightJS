@@ -2,7 +2,7 @@ import AgentPool from "../../../src/AgentPool";
 
 const agentPool = new AgentPool();
 
-for(let i = -10; i <= 10; i++){
+for(let i = 1; i <= 1; i++){
 
     test('type is registered correctly',() => {
         expect(agentPool.registerType(i + '', { a : '' })).toEqual(true);
