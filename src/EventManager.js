@@ -43,7 +43,7 @@ class EventManager{
             console.warn(`Cannot notify event '${eventName}' because it does not exist`);
             return false;
         }
-        WORLD.getService('AgentBehaviour')
+
         var services = Object.keys(this.events[eventName]);
 
         services.forEach((serviceName) => { 
