@@ -1,18 +1,13 @@
 <h1>CASES</h1>
 
-<b>Introduction</b>
+Note: The framework still needs more work and testing to be ready for production.
 
-A simple javascript framework designed to easily build data-driven applications with a modular approach
+<h2><b>Introduction</b></h2>
 
-<b>⚙️ Main Components:</b>
+CASES is a simple javascript framework designed to easily build data-driven applications with a modular approach. Below, we can see a diagram representing the general architecture of the framework:
 
-- CollectionManager (class)
-- AgentPool (class)
-- Service (class)
-- EventManager (class)
-- ServiceManager (class)
+![alt text](https://github.com/WebAxol/CASES/blob/main/img/architecture.png)
 
-- World (class)
 
 <b>💾 Data concepts and conventions utilized:</b>
 
