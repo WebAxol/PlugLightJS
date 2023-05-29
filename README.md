@@ -1,4 +1,4 @@
-<h1>CASES</h1>
+<h1> 🔌 PlugLightJS 💡</h1>
 
 Note: The framework still needs more work and testing to be ready for production.
 
