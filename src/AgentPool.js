@@ -3,25 +3,27 @@ class AgentPool{
     #types;
     #pools;
     #Agent;
+    #nextID;
 
     constructor(world){
         this.world = world;
         this.#types = {} // Type Object Pattern
         this.#pools = {} // Object Pool Pattern
         this.toBeRemoved = [];
-
-
+        this.#nextID = 0;
         
         this.#Agent = class Agent{
 
             #type;
             #collections;
+            #ID;
 
-            constructor(typeName,prototype){
+            constructor(typeName,prototype, ID){
 
                 this._children = {};
                 this.#collections = {};
                 this.#type = typeName;
+                this.#ID   = ID;
 
                 if(prototype['info']){
 
@@ -36,6 +38,10 @@ class AgentPool{
                         }
                     });
                 }
+            }
+
+            getID(){
+                return this.#ID;
             }
 
             getType(){
@@ -56,7 +62,9 @@ class AgentPool{
             removeCollection(collectionName){
                 delete this.#collections[collectionName];
             }
-            reset(prototype){
+            reset(prototype, newID){
+
+                this.#ID = newID;
 
                 Object.keys(prototype['info']).forEach((field) => {
                     let _field =  prototype['info'][field];
@@ -128,7 +136,7 @@ class AgentPool{
             this.resetAgent(agent);
         }
         else{
-            agent = new this.#Agent(typeName,this.#types[typeName]);
+            agent = new this.#Agent(typeName,this.#types[typeName],this.#nextID++);
         }
 
         if(!(details && details['info'])) return agent;
@@ -202,7 +210,7 @@ class AgentPool{
 
     resetAgent(agent){
         let prototype = this.#types[agent.getType()];
-        agent.reset(prototype);
+        agent.reset(prototype, this.#nextID++);
     }
 }
 
