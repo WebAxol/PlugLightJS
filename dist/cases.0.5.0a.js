@@ -1,41 +1,45 @@
-class AgentPool {
+class AgentPool{
 
     #types;
     #pools;
     #Agent;
+    #nextID;
 
     constructor(world){
         this.world = world;
         this.#types = {} // Type Object Pattern
         this.#pools = {} // Object Pool Pattern
         this.toBeRemoved = [];
-
-        //  Agent class is embedded so that only AgentPool can instantiate Agents
+        this.#nextID = 0;
         
         this.#Agent = class Agent{
 
             #type;
             #collections;
+            #ID;
 
-            constructor(typeName,prototype){
+            constructor(typeName,prototype, ID){
 
                 this._children = {};
                 this.#collections = {};
                 this.#type = typeName;
+                this.#ID   = ID;
 
-                if(prototype['info']){
+                if(!prototype['info']) return;
 
-                    Object.keys(prototype['info']).forEach((field) => {
-                        let _field =  prototype['info'][field];
+                Object.keys(prototype['info']).forEach((field) => {
+                    
+                    let _field =  prototype['info'][field];
 
-                        if(typeof _field == 'object'){
-                            this[field] = Object.assign({},_field); 
-                        }
-                        else{
-                            this[field] = _field;
-                        }
-                    });
-                }
+                    if(typeof _field == 'object') this[field] = Object.assign({},_field); 
+
+                    else this[field] = _field;
+                });
+                
+            }
+
+            getID(){
+                return this.#ID;
             }
 
             getType(){
@@ -56,16 +60,16 @@ class AgentPool {
             removeCollection(collectionName){
                 delete this.#collections[collectionName];
             }
-            reset(prototype){
+            reset(prototype, newID){
+
+                this.#ID = newID;
 
                 Object.keys(prototype['info']).forEach((field) => {
                     let _field =  prototype['info'][field];
-                        if(typeof _field == 'object'){
-                        this[field] = Object.assign({},_field); 
-                    }
-                    else{
-                        this[field] = _field;
-                    }
+                    
+                    if(typeof _field == 'object') this[field] = Object.assign({},_field); 
+                    
+                    else this[field] = _field;
                 });
             }
         }
@@ -108,8 +112,6 @@ class AgentPool {
             return false;
         }   
 
-        console.log(this.#types);
-
         if(!this.#types[typeName]){
             console.error(`Cannot create agent with a type defined as: ${typeName}; the type doesn't exist at AgentPool`);
             return false;
@@ -130,7 +132,7 @@ class AgentPool {
             this.resetAgent(agent);
         }
         else{
-            agent = new this.#Agent(typeName,this.#types[typeName]);
+            agent = new this.#Agent(typeName,this.#types[typeName],this.#nextID++);
         }
 
         if(!(details && details['info'])) return agent;
@@ -170,7 +172,6 @@ class AgentPool {
 
     removeAgent(agent){
         try{
-
             let agentType = agent.getType();
             let agentCollections = agent.getCollections();
             
@@ -189,7 +190,7 @@ class AgentPool {
             this.#pools[agentType].push(agent);
 
         }catch(err){
-            console.error(`Error, agent ${agent}`);
+            console.error(`Error removing agent ${agent}`);
             return false;
         }
     }
@@ -204,7 +205,7 @@ class AgentPool {
 
     resetAgent(agent){
         let prototype = this.#types[agent.getType()];
-        agent.reset(prototype);
+        agent.reset(prototype, this.#nextID++);
     }
 }
 
