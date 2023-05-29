@@ -1,4 +1,4 @@
-import AgentPool from "../../../src/AgentPool";
+import AgentPool from "../../../src/AgentPool.js";
 
 const agentPool = new AgentPool();
 
