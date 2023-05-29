@@ -25,19 +25,17 @@ class AgentPool{
                 this.#type = typeName;
                 this.#ID   = ID;
 
-                if(prototype['info']){
+                if(!prototype['info']) return;
 
-                    Object.keys(prototype['info']).forEach((field) => {
-                        let _field =  prototype['info'][field];
+                Object.keys(prototype['info']).forEach((field) => {
+                    
+                    let _field =  prototype['info'][field];
 
-                        if(typeof _field == 'object'){
-                            this[field] = Object.assign({},_field); 
-                        }
-                        else{
-                            this[field] = _field;
-                        }
-                    });
-                }
+                    if(typeof _field == 'object') this[field] = Object.assign({},_field); 
+
+                    else this[field] = _field;
+                });
+                
             }
 
             getID(){
@@ -68,12 +66,10 @@ class AgentPool{
 
                 Object.keys(prototype['info']).forEach((field) => {
                     let _field =  prototype['info'][field];
-                        if(typeof _field == 'object'){
-                        this[field] = Object.assign({},_field); 
-                    }
-                    else{
-                        this[field] = _field;
-                    }
+                    
+                    if(typeof _field == 'object') this[field] = Object.assign({},_field); 
+                    
+                    else this[field] = _field;
                 });
             }
         }
@@ -176,7 +172,6 @@ class AgentPool{
 
     removeAgent(agent){
         try{
-
             let agentType = agent.getType();
             let agentCollections = agent.getCollections();
             
@@ -195,7 +190,7 @@ class AgentPool{
             this.#pools[agentType].push(agent);
 
         }catch(err){
-            console.error(`Error, agent ${agent}`);
+            console.error(`Error removing agent ${agent}`);
             return false;
         }
     }

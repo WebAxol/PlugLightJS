@@ -76,17 +76,17 @@ class AgentPool {
         // Defensive input check
 
         if(typeof typeName !== 'string' || typeName == ''){
-            console.error(`Cannot create agentType with a type name defined as: ${typeName}; the type must be a non-empty string`);
+            throw Error(`Cannot create agentType with a type name defined as: ${typeName}; the type must be a non-empty string`);
             return false;
         }   
 
         if(this.#types[typeName] != undefined){
-            console.error(`The type named '${typeName}' has already been registered`);
+            throw Error(`The type named '${typeName}' has already been registered`);
             return false;
         }
 
         if(prototype == undefined){
-            console.error('Prototype cannot be undefined, it must be a JSON with the attributes of the agent')
+            throw Error('Prototype cannot be undefined, it must be a JSON with the attributes of the agent')
             return false;
         }
 
@@ -104,19 +104,19 @@ class AgentPool {
         // Defensive input check
 
         if(typeof typeName !== 'string' || typeName == ''){
-            console.error(`Cannot create agent with a type defined as: ${typeName}; the type must be a non-empty string`);
+            throw Error(`Cannot create agent with a type defined as: ${typeName}; the type must be a non-empty string`);
             return false;
         }   
 
         console.log(this.#types);
 
         if(!this.#types[typeName]){
-            console.error(`Cannot create agent with a type defined as: ${typeName}; the type doesn't exist at AgentPool`);
+            throw Error(`Cannot create agent with a type defined as: ${typeName}; the type doesn't exist at AgentPool`);
             return false;
         }
 
         if(details != undefined && typeof details  !== 'object'){
-            console.error(`'details' must be an object`);
+            throw Error(`'details' must be an object`);
             return false;
         }
 
@@ -145,7 +145,7 @@ class AgentPool {
         // Defensive output type check
 
         if(!(agent instanceof this.#Agent)){
-            console.error(`Something went wrong when creating a new Agent of type ${typeName}`);
+            throw Error(`Something went wrong when creating a new Agent of type ${typeName}`);
             return false;
         }
 
@@ -189,7 +189,7 @@ class AgentPool {
             this.#pools[agentType].push(agent);
 
         }catch(err){
-            console.error(`Error, agent ${agent}`);
+            throw Error(`Error, agent ${agent}`);
             return false;
         }
     }
@@ -224,12 +224,12 @@ class CollectionManager {
         // Defensive input check
 
         if(typeof name !== 'string' || name == ''){
-            console.error(`Cannot register collection with a name defined as: ${typeName}; the name must be a non-empty string`);
+            throw Error(`Cannot register collection with a name defined as: ${typeName}; the name must be a non-empty string`);
             return false;
         }   
 
         if(this.#collections[name]){
-            console.error(`Collection named '${name}' already registered`);
+            throw Error(`Collection named '${name}' already registered`);
             return false;
         }
 
@@ -245,7 +245,7 @@ class CollectionManager {
             return this.#collections[collectionName];
         }
 
-        console.error(`Cannot get unregistered collection '${collectionName}'`)
+        throw Error(`Cannot get unregistered collection '${collectionName}'`)
         return false;
     }
 
@@ -254,17 +254,17 @@ class CollectionManager {
         // Defensive input check 
 
         if(!this.#collections[collectionName]){
-            console.error(`collection named '${collectionName} is not registered'`);
+            throw Error(`collection named '${collectionName} is not registered'`);
             return false;
         }
 
         if(typeof object != 'object' || !object.isInCollection || !object.addCollection ){
-            console.error(`The value passed as 'agent' is not a valid Agent object ${collectionName}`);
+            throw Error(`The value passed as 'agent' is not a valid Agent object ${collectionName}`);
             return false;
         }
        
         if(object.isInCollection || object.isInCollection(collectionName)){
-            console.error(`The agent is already registered to collection ${collectionName}`);
+            throw Error(`The agent is already registered to collection ${collectionName}`);
             return false;
         }
 
@@ -399,17 +399,17 @@ class ServiceManager {
         // Defensive input check
 
         if(typeof name !== 'string' || name == ''){
-            console.error(`Cannot register service with a name defined as: ${typeName}; the name must be a non-empty string`);
+            throw Error(`Cannot register service with a name defined as: ${typeName}; the name must be a non-empty string`);
             return false;
         }   
 
         if(this.#services[name]){
-            console.error(`Service named '${name}' already registered`);
+            throw Error(`Service named '${name}' already registered`);
             return false;
         }
 
         if(!service || service == null){
-            console.error(`Cannot register invalid or null service '${name}'`);
+            throw Error(`Cannot register invalid or null service '${name}'`);
             return false;
         }
 
@@ -429,7 +429,7 @@ class ServiceManager {
     getService(serviceName){
 
         if(!this.#services[serviceName]){
-            console.error(`Cannot get unregistered service '${serviceName}'`);
+            throw Error(`Cannot get unregistered service '${serviceName}'`);
             return false;
         }
 
