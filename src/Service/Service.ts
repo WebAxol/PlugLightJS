@@ -1,14 +1,18 @@
+import World from '../World.js';
+
 class Service{
+
+    public world : World;
 
     constructor(){
         this.world = new World();
     }
 
-    execute(){
+    public execute(){
         return false;
     }
 
-    init(){
+    public init(){
         return false;
     }
 }

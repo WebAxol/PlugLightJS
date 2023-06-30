@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
 export default  {
-    entry : './src/World.js',
+    entry : './lib/World.js',
     output: {
         path : path.resolve(__dirname,'dist'),
         filename : 'pluglight.min.js'

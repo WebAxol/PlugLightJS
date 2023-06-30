@@ -1,0 +1,1 @@
+{"version":3,"file":"Prototype.js","sourceRoot":"","sources":["../../src/Entity/Prototype.ts"],"names":[],"mappings":"AAAA,MAAM,eAAe;IAKjB,YAAY,IAAyE;QAEjF,IAAI,CAAC,WAAW,GAAG,IAAI,CAAC,WAAW,CAAC;QACpC,IAAI,CAAC,OAAO,GAAO,IAAI,CAAC,OAAO,CAAC;IAEpC,CAAC;CACJ;AAED,eAAe,eAAe,CAAC"}

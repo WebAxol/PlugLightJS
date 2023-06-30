@@ -1,22 +1,26 @@
+import World from "./../World.js";
+import Service from "./Service.js";
+
 class ServiceManager {
 
-    #services;
+    private services : { [name : string] : Service };
+    public world : World;
 
     constructor(world){
         this.world = world;
-        this.#services = {};
+        this.services = {};
     }
 
-    registerService(name,service){
+    public registerService(name :string ,service : Service){
 
         // Defensive input check
 
         if(typeof name !== 'string' || name == ''){
-            throw Error(`Cannot register service with a name defined as: ${typeName}; the name must be a non-empty string`);
+            throw Error(`Cannot register service with a name defined as: ${name}; the name must be a non-empty string`);
             return false;
         }   
 
-        if(this.#services[name]){
+        if(this.services[name]){
             throw Error(`Service named '${name}' already registered`);
             return false;
         }
@@ -29,24 +33,24 @@ class ServiceManager {
         //
 
         service.world = this.world;
-        this.#services[name] = service;
-        this.#services[name].init();
+        this.services[name] = service;
+        this.services[name].init();
 
         return true;
     }
 
-    getServices(){
-        return this.#services;
+    public getServices(){
+        return this.services;
     }
 
-    getService(serviceName){
+    public getService(serviceName){
 
-        if(!this.#services[serviceName]){
+        if(!this.services[serviceName]){
             throw Error(`Cannot get unregistered service '${serviceName}'`);
             return false;
         }
 
-        return this.#services[serviceName];
+        return this.services[serviceName];
     }
 }
 

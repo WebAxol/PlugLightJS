@@ -5,6 +5,7 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
+    "compile" : "tsc -w",
     "build": "webpack --mode=development",
     "test": "jest",
     "start": "nodemon start.js"
