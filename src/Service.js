@@ -1,3 +1,5 @@
+import World from "./World.js";
+
 class Service{
 
     constructor(){

@@ -1,4 +1,4 @@
-import EntityPool from "../../../src/EntityPool";
+import EntityPool from "../../../src/EntityPool.js";
 
 const entityPool = new EntityPool();
 const n = 1;

@@ -15,7 +15,7 @@ class World {
 
          // subordinate modules
 
-        this.#entityPool         = new EntityPool(this);
+        this.#entityPool        = new EntityPool(this);
         this.#collectionManager = new CollectionManager(this);
         this.#eventManager      = new EventManager(this);
         this.#serviceManager    = new ServiceManager(this);
@@ -108,7 +108,7 @@ class World {
 
         Object.keys(services).forEach((service) => {
                 services[service].execute();
-         });
+        });
 
         if(!this.pause){
             this.frame++;

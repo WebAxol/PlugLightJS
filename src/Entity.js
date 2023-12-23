@@ -4,6 +4,12 @@ class Entity{
     #collections;
     #ID;
 
+    /**
+    *@param {string} typeName
+    *@param {Object} prototype
+    *@param {number} ID 
+    */
+
     constructor(typeName,prototype, ID){
 
         this._children = {};
