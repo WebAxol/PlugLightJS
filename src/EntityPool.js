@@ -1,8 +1,8 @@
-class AgentPool{
+class EntityPool{
 
     #types;
     #pools;
-    #Agent;
+    #Entity;
     #nextID;
 
     constructor(world){
@@ -12,7 +12,7 @@ class AgentPool{
         this.toBeRemoved = [];
         this.#nextID = 0;
         
-        this.#Agent = class Agent{
+        this.#Entity = class Entity{
 
             #type;
             #collections;
@@ -90,7 +90,7 @@ class AgentPool{
         }
 
         if(prototype == undefined){
-            console.error('Prototype cannot be undefined, it must be a JSON with the attributes of the agent')
+            console.error('Prototype cannot be undefined, it must be a JSON with the attributes of the entity')
             return false;
         }
 
@@ -108,12 +108,12 @@ class AgentPool{
         // Defensive input check
 
         if(typeof typeName !== 'string' || typeName == ''){
-            console.error(`Cannot create agent with a type defined as: ${typeName}; the type must be a non-empty string`);
+            console.error(`Cannot create entity with a type defined as: ${typeName}; the type must be a non-empty string`);
             return false;
         }   
 
         if(!this.#types[typeName]){
-            console.error(`Cannot create agent with a type defined as: ${typeName}; the type doesn't exist at AgentPool`);
+            console.error(`Cannot create entity with a type defined as: ${typeName}; the type doesn't exist at EntityPool`);
             return false;
         }
 
@@ -125,33 +125,33 @@ class AgentPool{
         //
         
         var world = this.world;
-        var agent;
+        var entity;
         
         if(this.#pools[typeName].length > 0){
-            agent = this.#pools[typeName].pop();
-            this.resetAgent(agent);
+            entity = this.#pools[typeName].pop();
+            this.resetAgent(entity);
         }
         else{
-            agent = new this.#Agent(typeName,this.#types[typeName],this.#nextID++);
+            entity = new this.#Entity(typeName,this.#types[typeName],this.#nextID++);
         }
 
-        if(!(details && details['info'])) return agent;
+        if(!(details && details['info'])) return entity;
         
         Object.keys(details['info']).forEach((detail) => {
 
             if(details['info'][detail] != undefined){
-                agent[detail] = details['info'][detail];
+                entity[detail] = details['info'][detail];
             }
         })
 
         // Defensive output type check
 
-        if(!(agent instanceof this.#Agent)){
-            console.error(`Something went wrong when creating a new Agent of type ${typeName}`);
+        if(!(entity instanceof this.#Entity)){
+            console.error(`Something went wrong when creating a new Entity of type ${typeName}`);
             return false;
         }
 
-        return agent;
+        return entity;
     }
 
     getCollectionsOfType(typeName){
@@ -166,31 +166,31 @@ class AgentPool{
         return collections;
     }
 
-    storeToBeRemoved(agent){
-        this.toBeRemoved.push(agent);
+    storeToBeRemoved(entity){
+        this.toBeRemoved.push(entity);
     }
 
-    removeAgent(agent){
+    removeAgent(entity){
         try{
-            let agentType = agent.getType();
-            let agentCollections = agent.getCollections();
+            let agentType = entity.getType();
+            let agentCollections = entity.getCollections();
             
             agentCollections.forEach((collectionName) => {
-                this.world.removeFromCollection(collectionName,agent);
+                this.world.removeFromCollection(collectionName,entity);
             });
             
-            let agentChildren = Object.keys(agent._children);
+            let agentChildren = Object.keys(entity._children);
             
             while(agentChildren.length){
-                this.removeAgent(agent._children[agentChildren[0]]);
-                delete agent._children[agentChildren[0]];
+                this.removeAgent(entity._children[agentChildren[0]]);
+                delete entity._children[agentChildren[0]];
                 agentChildren.shift();
             }
 
-            this.#pools[agentType].push(agent);
+            this.#pools[agentType].push(entity);
 
         }catch(err){
-            console.error(`Error removing agent ${agent}`);
+            console.error(`Error removing entity ${entity}`);
             return false;
         }
     }
@@ -198,15 +198,15 @@ class AgentPool{
     removeAgents(){
 
         while(this.toBeRemoved.length){
-            let agent = this.toBeRemoved.pop();
-            this.removeAgent(agent);
+            let entity = this.toBeRemoved.pop();
+            this.removeAgent(entity);
         }
     }
 
-    resetAgent(agent){
-        let prototype = this.#types[agent.getType()];
-        agent.reset(prototype, this.#nextID++);
+    resetAgent(entity){
+        let prototype = this.#types[entity.getType()];
+        entity.reset(prototype, this.#nextID++);
     }
 }
 
-export default AgentPool;
+export default EntityPool;

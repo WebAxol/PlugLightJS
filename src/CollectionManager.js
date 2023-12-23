@@ -49,12 +49,12 @@ class CollectionManager {
         }
 
         if(typeof object != 'object' || !object.isInCollection || !object.addCollection ){
-            console.error(`The value passed as 'agent' is not a valid Agent object ${collectionName}`);
+            console.error(`The value passed as 'entity' is not a valid Entity object ${collectionName}`);
             return false;
         }
        
         if(object.isInCollection && object.isInCollection(collectionName)){
-            console.error(`The agent is already registered to collection ${collectionName}`);
+            console.error(`The entity is already registered to collection ${collectionName}`);
             return false;
         }
 
@@ -66,21 +66,21 @@ class CollectionManager {
         return true;
     }
 
-    cacheToBeRemoved(collectionName,agent){
+    cacheToBeRemoved(collectionName,entity){
 
         var data;
 
         if(this._objectPool.length > 0){
             data = this._objectPool.pop();
             data.collectionName = collectionName;
-            data.agent = agent;
+            data.entity = entity;
 
             this.toBeRemoved.push(data);
         }
         else{
             this.toBeRemoved.push({
                 collectionName : collectionName,
-                agent : agent
+                entity : entity
             });
         }
     }
@@ -96,10 +96,10 @@ class CollectionManager {
 
         while(this.toBeRemoved.length > 0){
             let command = this.toBeRemoved.pop();
-            this.removeFromCollection(command.collectionName,command.agent);
+            this.removeFromCollection(command.collectionName,command.entity);
 
             command.collectionName = undefined;
-            command.agent = undefined;
+            command.entity = undefined;
 
             this._objectPool.push(command);
         }

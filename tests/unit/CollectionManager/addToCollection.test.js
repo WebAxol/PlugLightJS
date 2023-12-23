@@ -1,4 +1,4 @@
-import CollectionManager from "../../../src/CollectionManager";
+import CollectionManager from "../../../src/CollectionManager.js";
 
 const collectionManager = new CollectionManager();
 const testNumber = 10;
@@ -23,7 +23,7 @@ for(let i = 0; i < testNumber; i++){
         
     });
 
-    test('properly detects invalid value passed as agent', () => {
+    test('properly detects invalid value passed as entity', () => {
 
         expect(collectionManager.addToCollection('collection' + i, { isInCollection : () => {} })).toBe(false);
     

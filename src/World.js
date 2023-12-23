@@ -1,4 +1,4 @@
-import AgentPool from "./AgentPool.js";
+import EntityPool from "./EntityPool.js";
 import CollectionManager from "./CollectionManager.js";
 import EventManager from "./EventManager.js";
 import Service from "./Service.js";
@@ -6,7 +6,7 @@ import ServiceManager from "./ServiceManager.js";
 
 class World {
 
-    #agentPool;
+    #entityPool;
     #collectionManager;
     #serviceManager;
     #eventManager;
@@ -15,7 +15,7 @@ class World {
 
          // subordinate modules
 
-        this.#agentPool         = new AgentPool(this);
+        this.#entityPool         = new EntityPool(this);
         this.#collectionManager = new CollectionManager(this);
         this.#eventManager      = new EventManager(this);
         this.#serviceManager    = new ServiceManager(this);
@@ -57,28 +57,28 @@ class World {
     }
 
     registerAgentType(typeName,prototype){
-        return this.#agentPool.registerType(typeName,prototype);
+        return this.#entityPool.registerType(typeName,prototype);
     }
 
     createAgent(typeName,details = undefined){
 
-        let agent = this.#agentPool.createAgent(typeName,details);
+        let entity = this.#entityPool.createAgent(typeName,details);
         
         /*
 
-        let collections = this.#agentPool.getCollectionsOfType(typeName);
+        let collections = this.#entityPool.getCollectionsOfType(typeName);
 
         collections.forEach((collection) => {
-            this.addToCollection(collection, agent);
+            this.addToCollection(collection, entity);
         });
 
         */
 
-        return agent;
+        return entity;
     }
 
-    removeAgent(agent){
-        this.#agentPool.storeToBeRemoved(agent);
+    removeAgent(entity){
+        this.#entityPool.storeToBeRemoved(entity);
     }
 
     registerEvent(eventName){
@@ -102,7 +102,7 @@ class World {
 
         requestAnimationFrame(() => { this.execute() });
 
-        this.#agentPool.removeAgents();
+        this.#entityPool.removeAgents();
         this.#collectionManager.removeAgentsFromCollections();
         var services = this.getServices();
 
