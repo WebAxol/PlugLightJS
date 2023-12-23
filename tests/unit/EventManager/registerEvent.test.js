@@ -19,6 +19,7 @@ for(let i = 1; i <= n; i++){
         expect(eventManager.registerEvent('')).toEqual(false);
         expect(eventManager.registerEvent(true)).toEqual(false);
         expect(eventManager.registerEvent(i)).toEqual(false);
+        
         expect(Object.keys(eventManager.events).length).toEqual(i);         
     });  
 
