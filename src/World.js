@@ -95,12 +95,9 @@ class World {
 
     execute(){
         
-
         if(this.pause){
             return;
         }
-
-        requestAnimationFrame(() => { this.execute() });
 
         this.#entityPool.removeAgents();
         this.#collectionManager.removeAgentsFromCollections();
@@ -110,10 +107,12 @@ class World {
                 services[service].execute();
         });
 
-        if(!this.pause){
-            this.frame++;
-            this.routine(this);
-        }
+
+        this.frame++;
+        this.routine();
+        
+        requestAnimationFrame(() => { this.execute() });
+
     }
 
     pauseExecution(){
