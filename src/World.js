@@ -6,7 +6,7 @@ import ServiceManager from "./ServiceManager.js";
 
 class World {
 
-    #entityPool;
+    #entityManager;
     #collectionManager;
     #serviceManager;
     #eventManager;
@@ -15,7 +15,7 @@ class World {
 
          // subordinate modules
 
-        this.#entityPool        = new EntityManager(this);
+        this.#entityManager     = new EntityManager(this);
         this.#collectionManager = new CollectionManager(this);
         this.#eventManager      = new EventManager(this);
         this.#serviceManager    = new ServiceManager(this);
@@ -56,17 +56,21 @@ class World {
         return this.#collectionManager.cacheToBeRemoved(collectionName,object);
     }
 
-    registerAgentType(typeName,prototype){
-        return this.#entityPool.registerType(typeName,prototype);
+    registerEntityType(typeName,prototype){
+        return this.#entityManager.registerType(typeName,prototype);
+    }
+
+    hasEntityType(typeName){
+        return this.#entityManager.hasEntityType(typeName);
     }
 
     createAgent(typeName,details = undefined){
 
-        let entity = this.#entityPool.createAgent(typeName,details);
+        let entity = this.#entityManager.createAgent(typeName,details);
         
         /*
 
-        let collections = this.#entityPool.getCollectionsOfType(typeName);
+        let collections = this.#entityManager.getCollectionsOfType(typeName);
 
         collections.forEach((collection) => {
             this.addToCollection(collection, entity);
@@ -78,7 +82,7 @@ class World {
     }
 
     removeAgent(entity){
-        this.#entityPool.storeToBeRemoved(entity);
+        this.#entityManager.storeToBeRemoved(entity);
     }
 
     registerEvent(eventName){
@@ -95,11 +99,14 @@ class World {
 
     execute(){
         
+
         if(this.pause){
             return;
         }
 
-        this.#entityPool.removeAgents();
+        requestAnimationFrame(() => { this.execute() });
+
+        this.#entityManager.removeAgents();
         this.#collectionManager.removeAgentsFromCollections();
         var services = this.getServices();
 
@@ -107,12 +114,10 @@ class World {
                 services[service].execute();
         });
 
-
-        this.frame++;
-        this.routine();
-        
-        requestAnimationFrame(() => { this.execute() });
-
+        if(!this.pause){
+            this.frame++;
+            this.routine(this);
+        }
     }
 
     pauseExecution(){

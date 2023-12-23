@@ -1,25 +1,25 @@
 import EntityManager from "../../../src/EntityManager.js";
 
-const entityPool = new EntityManager();
+const entityManager = new EntityManager();
 
 for(let i = 1; i <= 1; i++){
 
     test('type is registered correctly',() => {
-        expect(entityPool.registerType(i + '', { a : '' })).toEqual(true);
+        expect(entityManager.registerType(i + '', { a : '' })).toEqual(true);
     });
 
     test('properly detect invalid type name', () => {
-        expect(entityPool.createAgent(i, { a : '' })).toEqual(false); 
+        expect(entityManager.createAgent(i, { a : '' })).toEqual(false); 
     
     });  
 
     test('properly detect unexisting type name', () => {
-        expect(entityPool.createAgent(i + 'notDefined', { a : '' })).toEqual(false); 
+        expect(entityManager.createAgent(i + 'notDefined', { a : '' })).toEqual(false); 
     
     });  
 
     test('properly create new Entity', () => {
-        expect(typeof entityPool.createAgent(i + '', { a : '' })).toEqual('object'); 
+        expect(typeof entityManager.createAgent(i + '', { a : '' })).toEqual('object'); 
     
     });  
 

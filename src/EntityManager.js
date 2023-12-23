@@ -45,6 +45,11 @@ class EntityManager{
         return true;
     }
 
+    hasEntityType(typeName){
+
+        return this.#types[typeName] !== undefined ? true : false;
+    }
+
 
     createAgent(typeName,details = undefined){
 
