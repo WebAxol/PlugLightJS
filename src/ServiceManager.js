@@ -1,4 +1,5 @@
 import Service from "./Service.js";
+import World from "./World.js";
 
 class ServiceManager {
 

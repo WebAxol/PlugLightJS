@@ -1,4 +1,5 @@
 import Entity from "./Entity.js";
+import World from "./World.js";
 
 class EntityManager{
 

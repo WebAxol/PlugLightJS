@@ -1,7 +1,7 @@
 import EntityManager from "../../../src/EntityManager.js";
 
 const entityPool = new EntityManager();
-const n = 1;
+const n = 100;
 // registerType
 
 for(let i = 1; i <= n; i++){

@@ -3,7 +3,6 @@ import ServiceManager from "../../../src/ServiceManager.js";
 import Service from "../../../src/Service.js";
 
 const serviceManager = new ServiceManager(new World());
-const services = [];
 
 const n = 100;
 

@@ -1,9 +1,9 @@
 import CollectionManager from "../../../src/CollectionManager.js";
 
 const collectionManager = new CollectionManager();
-const testNumber = 10;
+const n = 100;
 
-for(let i = 0; i < testNumber; i++){
+for(let i = 0; i < n; i++){
     
     test('properly creates new collection', () => {
 
