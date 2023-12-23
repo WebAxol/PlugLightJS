@@ -1,6 +1,6 @@
 import Entity from "./Entity.js";
 
-class EntityPool{
+class EntityManager{
 
     #types;
     #pools;
@@ -55,7 +55,7 @@ class EntityPool{
         }   
 
         if(!this.#types[typeName]){
-            console.error(`Cannot create entity with a type defined as: ${typeName}; the type doesn't exist at EntityPool`);
+            console.error(`Cannot create entity with a type defined as: ${typeName}; the type doesn't exist at EntityManager`);
             return false;
         }
 
@@ -151,4 +151,4 @@ class EntityPool{
     }
 }
 
-export default EntityPool;
+export default EntityManager;

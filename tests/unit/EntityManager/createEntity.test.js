@@ -1,6 +1,6 @@
-import EntityPool from "../../../src/EntityPool.js";
+import EntityManager from "../../../src/EntityManager.js";
 
-const entityPool = new EntityPool();
+const entityPool = new EntityManager();
 
 for(let i = 1; i <= 1; i++){
 

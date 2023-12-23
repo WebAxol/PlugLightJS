@@ -1,7 +1,7 @@
 "use strict";
 
-import EntityPool from "../../../src/EntityPool.js";
-const entityPool = new EntityPool({});
+import EntityManager from "../../../src/EntityManager.js";
+const entityPool = new EntityManager({});
 
 entityPool.registerType('dummy',{'info' : {}});
 

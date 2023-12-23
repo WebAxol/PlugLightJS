@@ -1,4 +1,4 @@
-import EntityPool from "./EntityPool.js";
+import EntityManager from "./EntityManager.js";
 import CollectionManager from "./CollectionManager.js";
 import EventManager from "./EventManager.js";
 import Service from "./Service.js";
@@ -15,7 +15,7 @@ class World {
 
          // subordinate modules
 
-        this.#entityPool        = new EntityPool(this);
+        this.#entityPool        = new EntityManager(this);
         this.#collectionManager = new CollectionManager(this);
         this.#eventManager      = new EventManager(this);
         this.#serviceManager    = new ServiceManager(this);
