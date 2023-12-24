@@ -33,6 +33,12 @@ const world = new World()
 ```
 ### Create Services
 
+<p>Services contain code that is executed every frame by the World class. They are implemented as 'Service' sub-classes</p>
+
+```js
+import { Service } from 'pluglightjs'; // You may need to import the Service class
+```
+
 ```js
 
 // Make a 'Service' sub-class: you can add custom methods and attributes
@@ -57,6 +63,23 @@ world.registerService('exampleService', new ExampleServiceA());
 
 ### Create Events
 
+<p>Here are the main functions to work with events in pljs:</p>
+
+```js
+world.registerEvent('eventName'); // create event
+```
+
+```js
+world.registerServiceToEvent('serviceName','eventName'); // make service an event listener
+```
+
+```js
+world.notifyEvent('eventName', { info : 'eventInfo' }); // emit event - notify to all listeners
+```
+
+<p>Lets implement that with a brief example:</p>
+
+
 ```js
 
 class EventEmitter extends Service{
@@ -80,6 +103,8 @@ class EventReceiver extends Service{
         super();
         // etc...
     }
+  
+    // event-handler class (on + event name)
 
     onexampleEvent(){
         console.log('event received');
