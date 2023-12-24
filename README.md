@@ -74,7 +74,7 @@ world.registerServiceToEvent('serviceName','eventName'); // make service an even
 ```
 
 ```js
-world.notifyEvent('eventName', { info : 'eventInfo' }); // emit event - notify to all listeners
+world.notifyEvent('eventName', { info : 'eventInfo' }); // emit event
 ```
 
 <p>Lets implement that with a brief example:</p>
