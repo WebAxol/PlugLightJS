@@ -123,10 +123,10 @@ world.registerServiceToEvent('receiver','exampleEvent');
 ### Framework Execution
 
 ```js
-world.execute();         // Start execution
+world.execute();    
 ```
 ```js
-world.pauseExecution();  // Stop execution
+world.pauseExecution();
 ```
 <hr>
 <h3>Contribute</h3>
