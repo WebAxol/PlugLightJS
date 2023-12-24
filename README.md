@@ -1,15 +1,22 @@
-<h1> 🔌 PlugLightJS 💡</h1>
 <div align="center">
 <b><pre>
-;-.  .         ,          .   .    ,  ,-.  
-|  ) |         |    o     |   |    | (   ` 
-|-'  | . . ,-: |    . ,-: |-. |-   |  `-.  
-|    | | | | | |    | | | | | |    | .   ) 
-'    ' `-` `-| `--' ' `-| ' ' `-' -'  `-'  
-           `-'        `-'                                                                                                     
+OooOOo.   o               o                o           OooOoo .oOOOo.  
+O     `O O               O       o        O                O  o     o  
+o      O o               o                o      O         o  O.       
+O     .o O               o                O     oOo        O   `OOoo.  
+oOooOO'  o  O   o  .oOoO O       O  .oOoO OoOo.  o         o        `O 
+o        O  o   O  o   O O       o  o   O o   o  O         O         o 
+O        o  O   o  O   o o     . O  O   o o   O  o   O     o  O.    .O 
+o'       Oo `OoO'o `OoOo OOoOooO o' `OoOo O   o  `oO `OooOO'   `oooO'  
+                       O                O                              
+                    OoO'             OoO'                              
 </pre></b>
 </div>
-                                                                                                                                
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+
                                                   
 <b>This project was inspired by ECSY.js : <a href="https://github.com/ecsyjs/ecsy">Let's see!</b>
 
