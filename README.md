@@ -103,5 +103,10 @@ world.execute();         // Start execution
 ```js
 world.pauseExecution();  // Stop execution
 ```
+<hr>
+<h3>Contribute</h3>
 
+```sh
+git clone https://github.com/WebAxol/PlugLightJS
+```
 
