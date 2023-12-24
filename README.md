@@ -55,6 +55,46 @@ world.registerService('exampleService', new ExampleServiceA());
 
 ```
 
+### Create Events
+
+```js
+
+class EventEmitter extends Service{
+
+    constructor(){
+        super();
+        // etc...
+    }
+
+    execute(){
+
+        // Emit event
+        
+        this.world.notifyEvent('exampleEvent');
+    }
+}
+
+class EventReceiver extends Service{
+
+    constructor(){
+        super();
+        // etc...
+    }
+
+    onexampleEvent(){
+        console.log('event received');
+    }
+}
+
+world.registerEvent('exampleEvent');
+
+world.registerService('emitter' , new EventEmitter());
+world.registerService('receiver', new EventReceiver());
+
+world.registerServiceToEvent('receiver','exampleEvent');
+
+```
+
 ### Framework Execution
 
 ```js
