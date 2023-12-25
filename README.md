@@ -10,8 +10,8 @@ O        o  O   o  O   o o     . O  O   o o   O  o   O     o  O.    .O
 o'       Oo `OoO'o `OoOo OOoOooO o' `OoOo O   o  `oO `OooOO'   `oooO'  
                        O                O                              
                     OoO'             OoO'                              
----------------------------------------------------
-**Data-driven light-weight JavaScript framework** 
+----------------------------------------------------------------------------
+**Data-driven light-weight JavaScript framework for real-time applications** 
 </pre>
 </div>
 
